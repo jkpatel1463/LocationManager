@@ -93,6 +93,12 @@ static id _sharedInstance;
         else if (CLLocationManager.authorizationStatus == kCLAuthorizationStatusRestricted) {
             return INTULocationServicesStateRestricted;
         }
+        else if (CLLocationManager.authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            return INTULocationServicesStateAvailableWhenInUse;
+        }
+        else if (CLLocationManager.authorizationStatus == kCLAuthorizationStatusAuthorizedAlways) {
+            return INTULocationServicesStateAvailableAlways;
+        }
     } else {
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
             return INTULocationServicesStateNotDetermined;
@@ -102,6 +108,12 @@ static id _sharedInstance;
         }
         else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
             return INTULocationServicesStateRestricted;
+        }
+        else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            return INTULocationServicesStateAvailableWhenInUse;
+        }
+        else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) {
+            return INTULocationServicesStateAvailableAlways;
         }
     }
 
