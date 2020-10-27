@@ -41,17 +41,19 @@
 #   define __INTU_DESIGNATED_INITIALIZER
 #endif
 
-static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdCity =         5000.0;  // in meters
-static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdNeighborhood = 1000.0;  // in meters
-static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdBlock =         100.0;  // in meters
-static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdHouse =          15.0;  // in meters
-static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdRoom =            5.0;  // in meters
+static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdCityReducedAccuracy = 10000.0;  // in meters
+static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdCity =                 5000.0;  // in meters
+static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdNeighborhood =         1000.0;  // in meters
+static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdBlock =                 100.0;  // in meters
+static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdHouse =                  15.0;  // in meters
+static const CLLocationAccuracy kINTUHorizontalAccuracyThresholdRoom =                    5.0;  // in meters
 
-static const NSTimeInterval kINTUUpdateTimeStaleThresholdCity =             600.0;  // in seconds
-static const NSTimeInterval kINTUUpdateTimeStaleThresholdNeighborhood =     300.0;  // in seconds
-static const NSTimeInterval kINTUUpdateTimeStaleThresholdBlock =             60.0;  // in seconds
-static const NSTimeInterval kINTUUpdateTimeStaleThresholdHouse =             15.0;  // in seconds
-static const NSTimeInterval kINTUUpdateTimeStaleThresholdRoom =               5.0;  // in seconds
+static const NSTimeInterval kINTUUpdateTimeStaleThresholdCityReducedAccuracy = 6000.0;  // in seconds
+static const NSTimeInterval kINTUUpdateTimeStaleThresholdCity =                 600.0;  // in seconds
+static const NSTimeInterval kINTUUpdateTimeStaleThresholdNeighborhood =         300.0;  // in seconds
+static const NSTimeInterval kINTUUpdateTimeStaleThresholdBlock =                 60.0;  // in seconds
+static const NSTimeInterval kINTUUpdateTimeStaleThresholdHouse =                 15.0;  // in seconds
+static const NSTimeInterval kINTUUpdateTimeStaleThresholdRoom =                   5.0;  // in seconds
 
 /** The possible states that location services can be in. */
 typedef NS_ENUM(NSInteger, INTULocationServicesState) {

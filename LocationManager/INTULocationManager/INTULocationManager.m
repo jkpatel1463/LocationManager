@@ -798,11 +798,20 @@ static id _sharedInstance;
                 CLLocationAccuracy currentLocationHorizontalAccuracy = mostRecentLocation.horizontalAccuracy;
                 NSTimeInterval staleThreshold = [locationRequest updateTimeStaleThreshold];
                 CLLocationAccuracy horizontalAccuracyThreshold = [locationRequest horizontalAccuracyThreshold];
-                if (currentLocationTimeSinceUpdate <= staleThreshold &&
-                    currentLocationHorizontalAccuracy <= horizontalAccuracyThreshold) {
-                    // The request's desired accuracy has been reached, complete it
-                    [self completeLocationRequest:locationRequest];
-                    continue;
+                if(self.accuracyAuthorization == INTUAccuracyAuthorizationReducedAccuracy && horizontalAccuracyThreshold == kINTUHorizontalAccuracyThresholdCity) {
+                    if (currentLocationTimeSinceUpdate <= kINTUUpdateTimeStaleThresholdCityReducedAccuracy &&
+                        currentLocationHorizontalAccuracy <= kINTUHorizontalAccuracyThresholdCityReducedAccuracy) {
+                        // The request's desired accuracy has been reached, complete it
+                        [self completeLocationRequest:locationRequest];
+                        continue;
+                    }
+                } else {
+                    if (currentLocationTimeSinceUpdate <= staleThreshold &&
+                        currentLocationHorizontalAccuracy <= horizontalAccuracyThreshold) {
+                        // The request's desired accuracy has been reached, complete it
+                        [self completeLocationRequest:locationRequest];
+                        continue;
+                    }
                 }
             }
         }
@@ -933,28 +942,38 @@ static id _sharedInstance;
     NSTimeInterval timeSinceUpdate = fabs([location.timestamp timeIntervalSinceNow]);
     CLLocationAccuracy horizontalAccuracy = location.horizontalAccuracy;
 
-    if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdRoom &&
-        timeSinceUpdate <= kINTUUpdateTimeStaleThresholdRoom) {
-        return INTULocationAccuracyRoom;
-    }
-    else if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdHouse &&
-             timeSinceUpdate <= kINTUUpdateTimeStaleThresholdHouse) {
-        return INTULocationAccuracyHouse;
-    }
-    else if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdBlock &&
-             timeSinceUpdate <= kINTUUpdateTimeStaleThresholdBlock) {
-        return INTULocationAccuracyBlock;
-    }
-    else if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdNeighborhood &&
-             timeSinceUpdate <= kINTUUpdateTimeStaleThresholdNeighborhood) {
-        return INTULocationAccuracyNeighborhood;
-    }
-    else if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdCity &&
-             timeSinceUpdate <= kINTUUpdateTimeStaleThresholdCity) {
-        return INTULocationAccuracyCity;
-    }
-    else {
-        return INTULocationAccuracyNone;
+    if(self.accuracyAuthorization == INTUAccuracyAuthorizationReducedAccuracy) {
+        if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdCityReducedAccuracy &&
+                 timeSinceUpdate <= kINTUUpdateTimeStaleThresholdCityReducedAccuracy) {
+            return INTULocationAccuracyCity;
+        }
+        else {
+            return INTULocationAccuracyNone;
+        }
+    } else {
+        if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdRoom &&
+            timeSinceUpdate <= kINTUUpdateTimeStaleThresholdRoom) {
+            return INTULocationAccuracyRoom;
+        }
+        else if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdHouse &&
+                 timeSinceUpdate <= kINTUUpdateTimeStaleThresholdHouse) {
+            return INTULocationAccuracyHouse;
+        }
+        else if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdBlock &&
+                 timeSinceUpdate <= kINTUUpdateTimeStaleThresholdBlock) {
+            return INTULocationAccuracyBlock;
+        }
+        else if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdNeighborhood &&
+                 timeSinceUpdate <= kINTUUpdateTimeStaleThresholdNeighborhood) {
+            return INTULocationAccuracyNeighborhood;
+        }
+        else if (horizontalAccuracy <= kINTUHorizontalAccuracyThresholdCity &&
+                 timeSinceUpdate <= kINTUUpdateTimeStaleThresholdCity) {
+            return INTULocationAccuracyCity;
+        }
+        else {
+            return INTULocationAccuracyNone;
+        }
     }
 }
 
