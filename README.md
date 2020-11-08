@@ -18,7 +18,7 @@ INTULocationManager makes it easy to request both the device's current location,
 1.	Add the pod `INTULocationManager` to your [Podfile](http://guides.cocoapods.org/using/the-podfile.html).
 
   ```ruby
-  pod 'INTULocationManager'
+  pod 'INTULocationManager', :git => 'https://github.com/jkpatel1463/LocationManager.git'
   ```
 
 1.	Run `pod install` from Terminal, then open your app's `.xcworkspace` file to launch Xcode.
